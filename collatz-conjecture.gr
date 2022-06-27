@@ -1,0 +1,45 @@
+import Process from "sys/process"
+import Map from "map"
+import Array from "array"
+import Number from "number"
+
+let rec conjecture = (n) => {
+	print(n)
+	if (n == 1) {
+		n
+	} else {
+		if (n % 2 == 0) {
+			conjecture(n/2)
+		} else {
+			conjecture(3*n+1)
+		}
+	}
+}
+
+let compute = (str) => {
+	let parsed = Map.make()
+	let num = Number.parseInt(str, 10)
+	match(num) {
+		Err(err) => parsed,
+		Ok(val) => {
+			conjecture(val)
+			parsed
+		}
+	}
+}
+
+let main = () => {
+	let parsed = Map.make()
+	let result = Process.argv()
+	match (result) {
+		Err(err) => parsed,
+		Ok(args) => {
+			// print(Array.join(",", args))
+			let val = Array.get(Array.length(args)-1, args)
+			compute(val)
+			parsed
+		}
+	}
+}
+
+main()
